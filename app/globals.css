@@ -1,26 +1,193 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --canvas: #fafaf8;
+  --canvas-2: #f3f2ec;
+  --ink: #141414;
+  --muted: #5c5c57;
+  --line: #e8e6df;
+  --line-strong: #d4d1c8;
+  --accent: #6d5ae6;
+  --accent-ink: #ffffff;
+  --accent-soft: #eeebfb;
+  --term: #12131a;
+  --term-fg: #d8dae3;
+  --term-dim: #7a7e8c;
+  --term-ok: #6fbf93;
+  --term-warn: #d4a35c;
+  --radius: 8px;
+}
+
+html.dark {
+  --canvas: #0e0e0c;
+  --canvas-2: #161613;
+  --ink: #f4f3ee;
+  --muted: #a3a198;
+  --line: #2a2924;
+  --line-strong: #3c3b34;
+  --accent: #8b7cf0;
+  --accent-ink: #0e0e0c;
+  --accent-soft: #1c1a2c;
+  --term: #0a0b10;
+  --term-fg: #d8dae3;
+  --term-dim: #7a7e8c;
+  --term-ok: #6fbf93;
+  --term-warn: #d4a35c;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-canvas: var(--canvas);
+  --color-canvas-2: var(--canvas-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-term: var(--term);
+  --color-term-fg: var(--term-fg);
+  --color-term-dim: var(--term-dim);
+  --color-term-ok: var(--term-ok);
+  --color-term-warn: var(--term-warn);
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-display);
+  --font-mono: var(--font-code);
+  --radius-md: var(--radius);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.t-display {
+  font-family: var(--font-serif), ui-serif, Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+}
+
+.t-title {
+  font-family: var(--font-serif), ui-serif, Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hairline {
+  border-color: var(--line);
+}
+
+.mark-art {
+  fill: #a78bfa;
+  overflow: visible;
+}
+
+.mark-art .ears,
+.mark-art .legs > *,
+.mark-art .eyes {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease;
+}
+
+.mark-art .eyes {
+  fill: #5b21b6;
+  opacity: 0;
+}
+
+html.dark .mark-art .eyes {
+  fill: #fafaf8;
+}
+
+.mark:hover .mark-art .ears {
+  transform: translateY(-0.62px);
+}
+
+.mark:hover .mark-art .legs > :first-child {
+  transform: translate(-0.55px, 0.28px);
+}
+
+.mark:hover .mark-art .legs > :last-child {
+  transform: translate(0.55px, 0.28px);
+}
+
+.mark:hover .mark-art .eyes {
+  opacity: 1;
+}
+
+.pf-caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 1px;
+  vertical-align: -0.12em;
+  background: var(--ink);
+  animation: pf-blink 1s steps(1) infinite;
+}
+
+.pf-caret-term {
+  background: var(--accent);
+  vertical-align: -0.15em;
+}
+
+.pf-pulse {
+  animation: pf-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pf-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes pf-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-caret,
+  .pf-pulse {
+    animation: none;
+  }
 }
