@@ -29,6 +29,9 @@ export function Nav() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <Link href="/login" className="hidden text-sm text-muted hover:text-ink sm:inline">
+            Sign in
+          </Link>
           <ThemeToggle />
           <button
             type="button"
@@ -55,6 +58,9 @@ export function Nav() {
             <a href={LINKS.boxcodeRepo} target="_blank" rel="noreferrer">
               GitHub
             </a>
+            <Link href="/login" onClick={() => setOpen(false)}>
+              Sign in
+            </Link>
           </div>
         </div>
       ) : null}
